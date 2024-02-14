@@ -1,42 +1,92 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+/* App.jsx */
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* SearchBar */
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.label-search {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.input-search {
+  outline: none;
+  border: 1px solid gray;
+  border-radius: 5px;
+  text-indent: 40px;
+  font-size: 18px;
+  width: 100%;
+  height: 56px;
+}
+
+.input-search::placeholder {
+  opacity: 60%;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-wrapper img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 20px;
+  padding-left: 15px;
+  padding-top: 19px;
+  opacity: 50%;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.card-container {
+  max-width: 300px;
+  max-width: 300px;
+}
+
+.flag-img {
+  width: 300px;
+  height: 177px;
+}
+.info-wrapper {
   text-align: center;
+  text-wrap: nowrap;
+  overflow: hidden;
+}
+.country-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 56px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.error-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 56px;
 }
