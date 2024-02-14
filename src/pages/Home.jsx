@@ -1,12 +1,14 @@
+import { useEffect, useState } from "react";
 import { useFetchAllCountryQuery } from "../redux/store";
 import Search from "../components/SearchBar";
-import { useEffect, useState } from "react";
+import Pagination from "../components/Pagination";
 function Home() {
   const { data: countries, isLoading, isError } = useFetchAllCountryQuery();
   console.log(countries);
 
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fuzzySearch = (searchTerm, country) => {
     const lowerSearchTerm = searchTerm.toLowerCase();
@@ -19,22 +21,37 @@ function Home() {
       setFilteredCountries(countries);
     } else {
       const results = countries.filter((country) =>
-        fuzzySearch(searchTerm, country)
+      fuzzySearch(searchTerm, country)
       );
       setFilteredCountries(results);
+      setCurrentPage(1)
     }
   }, [searchTerm, countries]);
 
   const handleSearch = (searchTerm) => {
     setSearchTerm(searchTerm);
   };
+
+  const hanldeOnChangePage = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const startIndex = (currentPage - 1) * 25;
+  const endIndex = startIndex + 25;
+  const currentItems = filteredCountries?.slice(startIndex, endIndex);
   return (
     <>
       <Search onSearch={handleSearch} />
+      <Pagination
+        data={filteredCountries}
+        dataPerPage={25}
+        onPageChange={hanldeOnChangePage}
+        currentPage={currentPage}
+      />
       {isLoading && <p className="loading-screen">Loading...</p>}
       {isError && <p className="error-screen">Error loading data</p>}
       <div className="card-wrapper">
-        {filteredCountries?.map((country) => (
+        {currentItems?.map((country) => (
           <div className="card-container" key={country.cca2}>
             <img src={country?.flags.png} className="flag-img" />
             <div className="info-wrapper">
