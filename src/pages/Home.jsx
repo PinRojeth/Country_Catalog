@@ -1,18 +1,42 @@
 import { useFetchAllCountryQuery } from "../redux/store";
 import Search from "../components/SearchBar";
+import { useEffect, useState } from "react";
 function Home() {
   const { data: countries, isLoading, isError } = useFetchAllCountryQuery();
   console.log(countries);
 
+  const [filteredCountries, setFilteredCountries] = useState(countries);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const fuzzySearch = (searchTerm, country) => {
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    const lowerCountryName = country?.name?.official.toLowerCase();
+    return lowerCountryName.includes(lowerSearchTerm);
+  };
+
+  useEffect(() => {
+    if (!searchTerm) {
+      setFilteredCountries(countries);
+    } else {
+      const results = countries.filter((country) =>
+        fuzzySearch(searchTerm, country)
+      );
+      setFilteredCountries(results);
+    }
+  }, [searchTerm, countries]);
+
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+  };
   return (
     <>
-      <Search />
+      <Search onSearch={handleSearch} />
       {isLoading && <p className="loading-screen">Loading...</p>}
       {isError && <p className="error-screen">Error loading data</p>}
       <div className="card-wrapper">
-        {countries?.map((country) => (
+        {filteredCountries?.map((country) => (
           <div className="card-container" key={country.cca2}>
-            <img src={country?.flag} className="flag-img" />
+            <img src={country?.flags.png} className="flag-img" />
             <div className="info-wrapper">
               <h1 className="country-name">{country?.name?.official}</h1>
               <p>CCA2 : {country.cca2}</p>

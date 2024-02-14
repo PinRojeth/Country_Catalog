@@ -1,11 +1,13 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import "../App.css";
 import searchImg from "../assets/search.png";
-function Search() {
-  const [search, setSearch] = useState();
+function Search({ onSearch }) {
+  const [search, setSearch] = useState('');
 
   const handleOnChangeValue = (event) => {
-    setSearch(event.target.value);
+    setSearch(event.target.value)
+    onSearch(event.target.value);
   };
   console.log(search);
 
