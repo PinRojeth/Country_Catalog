@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import "../App.css";
 
-function Pagination({ data, dataPerPage, currentPage, onPageChange }) {
+function Pagination({ data, dataPerPage, currentPage, onPageChange, disableNext }) {
   const totalPages = Math.ceil(data?.length / dataPerPage);
 
   const handleClickNext = () => {
@@ -28,7 +28,7 @@ function Pagination({ data, dataPerPage, currentPage, onPageChange }) {
       <button
         className="btn"
         onClick={handleClickNext}
-        disabled={currentPage === totalPages}
+        disabled={disableNext || currentPage === totalPages}
       >
         Next
       </button>

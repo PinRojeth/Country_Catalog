@@ -40,13 +40,15 @@ function Home() {
   const hanldeOnChangePage = (newPage) => {
     setCurrentPage(newPage);
   };
-
+  
+  
   const startIndex = (currentPage - 1) * 25;
   const endIndex = startIndex + 25;
   const currentItems =
-    sortedCountries?.slice(startIndex, endIndex) ||
-    filteredCountries?.slice(startIndex, endIndex);
-
+  sortedCountries?.slice(startIndex, endIndex) ||
+  filteredCountries?.slice(startIndex, endIndex);
+  
+  const disableNext = currentItems?.length < 25;
   const handleSort = (sortedData) => {
     setSortedCountries(sortedData);
   };
@@ -70,12 +72,14 @@ function Home() {
           <h1 className="label">Sort By Name</h1>
         </div>
         <div className="func-btn">
-          <Sorted sortCountry={filteredCountries} onSortedData={handleSort} />
+          <Sorted sortCountry={countries} onSortedData={handleSort} />
           <Pagination
             data={filteredCountries}
             dataPerPage={25}
             onPageChange={hanldeOnChangePage}
             currentPage={currentPage}
+            disableNext={disableNext}
+
           />
         </div>
       </div>
