@@ -84,15 +84,15 @@ function Home() {
       {isError && <p className="error-screen">Error loading data</p>}
       <div className="card-wrapper">
         {currentItems?.map((country) => (
-          <div className="card-container" key={country.cca2}>
+          <div className="card-container" key={country?.cca2}>
             <img src={country?.flags?.png} className="flag-img" />
             <div className="info-wrapper">
               <h1 className="country-name">{country?.name?.official}</h1>
-              <p>CCA2 : {country.cca2}</p>
-              <p>CCA3 : {country.cca3}</p>
+              <p>CCA2 : {country?.cca2}</p>
+              <p>CCA3 : {country?.cca3}</p>
               <p>
                 Native Name :{" "}
-                {Object.keys(country?.name?.nativeName || {}).map(
+                {Object.keys(country?.name?.nativeName || {})?.map(
                   (langCode) => (
                     <span key={langCode}>
                       {country?.name?.nativeName[langCode]?.official}

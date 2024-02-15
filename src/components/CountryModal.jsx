@@ -21,7 +21,7 @@ function CountryModal({ CountryDetail, onClose }) {
             <p>Common : {CountryDetail?.name?.common}</p>
             <p>
               Native Name :{" "}
-              {Object.keys(CountryDetail?.name?.nativeName || {}).map(
+              {Object.keys(CountryDetail?.name?.nativeName || {})?.map(
                 (langCode) => (
                   <span key={langCode}>
                     {CountryDetail?.name?.nativeName[langCode]?.official}
@@ -44,8 +44,8 @@ function CountryModal({ CountryDetail, onClose }) {
             <p>Area : {CountryDetail?.area}</p>
             <p>Capital : {CountryDetail?.capital}</p>
             <p>
-              CapitalInfo : Lat ({CountryDetail?.capitalInfo?.latlng[0]}) lng (
-              {CountryDetail?.capitalInfo?.latlng[1]})
+              CapitalInfo : Lat ({CountryDetail?.capitalInfo?.latlng?.[0]}) lng (
+              {CountryDetail?.capitalInfo?.latlng?.[1]})
             </p>
             <p>
               Car : Side({CountryDetail?.car?.side}) Signs(
@@ -54,21 +54,21 @@ function CountryModal({ CountryDetail, onClose }) {
             <p>Containents : {CountryDetail?.continents}</p>
             <p>
               Currencies:{" "}
-              {Object.keys(CountryDetail?.currencies || {}).map((cur) => (
+              {Object.keys(CountryDetail?.currencies || {})?.map((cur) => (
                 <span key={cur}>
-                  {CountryDetail?.currencies[cur].name} (
-                  {CountryDetail?.currencies[cur].symbol}){", "}
+                  {CountryDetail?.currencies[cur]?.name} (
+                  {CountryDetail?.currencies[cur]?.symbol}){", "}
                 </span>
               ))}
             </p>
             <p>
               {" "}
               Demonyms:{" "}
-              {Object.keys(CountryDetail?.demonyms || {}).map((langCode) => (
+              {Object.keys(CountryDetail?.demonyms || {})?.map((langCode) => (
                 <span key={langCode}>
                   {`${langCode}: `}
-                  {`Female: ${CountryDetail?.demonyms[langCode].f}, `}
-                  {`Male: ${CountryDetail?.demonyms[langCode].m}`}
+                  {`Female: ${CountryDetail?.demonyms[langCode]?.f}, `}
+                  {`Male: ${CountryDetail?.demonyms[langCode]?.m}`}
                   {", "}
                 </span>
               ))}
@@ -77,7 +77,7 @@ function CountryModal({ CountryDetail, onClose }) {
             <p>
               {" "}
               Gini :{" "}
-              {Object.keys(CountryDetail?.gini || {}).map((year) => (
+              {Object.keys(CountryDetail?.gini || {})?.map((year) => (
                 <span key={year}>
                   {`${year}: ${CountryDetail?.gini[year]}`}
                   {", "}
@@ -89,7 +89,7 @@ function CountryModal({ CountryDetail, onClose }) {
             <p>
               {" "}
               Languages :{" "}
-              {Object.keys(CountryDetail?.languages || {}).map((language) => {
+              {Object.keys(CountryDetail?.languages || {})?.map((language) => {
                 return (
                   <span key={language}>
                     {`${language} (${CountryDetail?.languages[language]})`}
@@ -102,7 +102,7 @@ function CountryModal({ CountryDetail, onClose }) {
               Latlng : Lat ({CountryDetail?.latlng?.[0]}) lng (
               {CountryDetail?.latlng?.[1]})
             </p>
-            <p>Maps : {CountryDetail.maps?.googleMaps}</p>
+            <p>Maps : {CountryDetail?.maps?.googleMaps}</p>
             <p>PostalCode : {CountryDetail?.postalCode?.format}</p>
             <p>Population: {CountryDetail?.population}</p>
             <p>Region : {CountryDetail?.region}</p>
@@ -113,7 +113,7 @@ function CountryModal({ CountryDetail, onClose }) {
             <p>Tld : {CountryDetail?.tld}</p>
             <p>
               Translations :{" "}
-              {Object.entries(CountryDetail?.translations || {}).map(
+              {Object.entries(CountryDetail?.translations || {})?.map(
                 ([language, translation]) => (
                   <li key={language}>
                     {`${language}: (${translation?.official} ${translation?.common}) `}
