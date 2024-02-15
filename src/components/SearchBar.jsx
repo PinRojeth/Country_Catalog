@@ -13,7 +13,7 @@ function Search({ onSearch }) {
 
   return (
     <div className="searchForm">
-      <label className="label-search">Country Catalog</label>
+      <label className="label">Country Catalog</label>
       <div className="search-wrapper">
         <img src={searchImg} className="search-img" />
         <input

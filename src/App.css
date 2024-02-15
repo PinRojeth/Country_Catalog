@@ -18,7 +18,7 @@
   gap: 20px;
 }
 
-.label-search {
+.label {
   font-size: 24px;
   font-weight: 800;
 }
@@ -60,6 +60,9 @@
   gap: 18px;
 }
 .card-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   max-width: 300px;
   padding: 20px;
 }
@@ -87,9 +90,18 @@
   font-size: 24px;
 }
 
+.sort-pagination-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.func-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
 .btn-pagination {
   display: flex;
-  justify-content: flex-end;
   column-gap: 10px;
 }
 
@@ -98,14 +110,64 @@
   justify-content: center;
   align-items: center;
   height: 40px;
-  background-color: #6750A4;
+  background-color: rgb(39, 121, 203);
   border: none;
   border-radius: 100px;
   color: white;
   padding: 10px 24px 10px 24px;
 }
 .btn:disabled {
-  background-color: gray;
+  background-color: rgba(128, 128, 128, 0.519);
+}
+
+.Asc-Des-Container {
+  display: flex;
+  column-gap: 10px;
+}
+.btn-Asc-Des {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: rgba(128, 128, 128, 0.519);
+  border: none;
+  border-radius: 100px;
+  color: white;
+  padding: 10px 24px 10px 24px;
+}
+.btn-Asc-Des:focus {
+  background-color: rgb(39, 121, 203);
+}
+
+.btn-reset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background-color: rgba(242, 42, 55, 0.786);
+  border: none;
+  border-radius: 100px;
+  color: white;
+  padding: 10px 24px 10px 24px;
+}
+
+.btn-detail {
+  background-image: linear-gradient(315deg, #1b2845 0%, #274060 74%);
+  color: white;
+  border-radius: 15px;
+  border: none;
+  height: 46px;
+  font-size: 16px;
+  outline: none;
+  transition: background-image 0.3s ease; /* Add transition for a smooth effect */
+}
+
+.btn-detail:hover {
+  background-image: none;
+  border-radius: 15px;
+  border: 1px solid #ffffff;
+  color: black;
+  transition: 0.35s;
 }
 
 /* Loading and Error Screen */

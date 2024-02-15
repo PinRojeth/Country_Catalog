@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useFetchAllCountryQuery } from "../redux/store";
 import Search from "../components/SearchBar";
 import Pagination from "../components/Pagination";
+import Sorted from "../components/Sorting";
 function Home() {
   const { data: countries, isLoading, isError } = useFetchAllCountryQuery();
-  console.log(countries);
 
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortedCountries, setSortedCountries] = useState([]);
 
   const fuzzySearch = (searchTerm, country) => {
     const lowerSearchTerm = searchTerm.toLowerCase();
@@ -21,11 +22,12 @@ function Home() {
       setFilteredCountries(countries);
     } else {
       const results = countries.filter((country) =>
-      fuzzySearch(searchTerm, country)
+        fuzzySearch(searchTerm, country)
       );
       setFilteredCountries(results);
-      setCurrentPage(1)
+      setCurrentPage(1);
     }
+    setSortedCountries(filteredCountries);
   }, [searchTerm, countries]);
 
   const handleSearch = (searchTerm) => {
@@ -38,16 +40,32 @@ function Home() {
 
   const startIndex = (currentPage - 1) * 25;
   const endIndex = startIndex + 25;
-  const currentItems = filteredCountries?.slice(startIndex, endIndex);
+  const currentItems =
+    sortedCountries?.slice(startIndex, endIndex) ||
+    filteredCountries?.slice(startIndex, endIndex);
+
+  const handleSort = (sortedData) => {
+    setSortedCountries(sortedData);
+  };
+
   return (
     <>
       <Search onSearch={handleSearch} />
-      <Pagination
-        data={filteredCountries}
-        dataPerPage={25}
-        onPageChange={hanldeOnChangePage}
-        currentPage={currentPage}
-      />
+      <div className="sort-pagination-container">
+        <div>
+          <h1 className="label">Sort By Name</h1>
+        </div>
+        <div className="func-btn">
+          <Sorted sortCountry={filteredCountries} onSortedData={handleSort} />
+          <Pagination
+            data={filteredCountries}
+            dataPerPage={25}
+            onPageChange={hanldeOnChangePage}
+            currentPage={currentPage}
+          />
+        </div>
+      </div>
+
       {isLoading && <p className="loading-screen">Loading...</p>}
       {isError && <p className="error-screen">Error loading data</p>}
       <div className="card-wrapper">
@@ -81,6 +99,7 @@ function Home() {
                 {country?.idd?.suffixes}
               </p>
             </div>
+            <button className="btn-detail">Details</button>
           </div>
         ))}
       </div>
