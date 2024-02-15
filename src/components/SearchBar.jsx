@@ -1,15 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import "../App.css";
 import searchImg from "../assets/search.png";
 function Search({ onSearch }) {
-  const [search, setSearch] = useState('');
 
   const handleOnChangeValue = (event) => {
-    setSearch(event.target.value)
     onSearch(event.target.value);
   };
-  console.log(search);
 
   return (
     <div className="searchForm">
@@ -20,7 +16,7 @@ function Search({ onSearch }) {
           className="input-search"
           type="text"
           placeholder="Search Countries"
-          value={search}
+          value={event?.target?.value}
           onChange={handleOnChangeValue}
         />
       </div>

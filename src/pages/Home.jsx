@@ -3,6 +3,7 @@ import { useFetchAllCountryQuery } from "../redux/store";
 import Search from "../components/SearchBar";
 import Pagination from "../components/Pagination";
 import Sorted from "../components/Sorting";
+import CountryModal from "../components/CountryModal";
 function Home() {
   const { data: countries, isLoading, isError } = useFetchAllCountryQuery();
 
@@ -10,6 +11,8 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedCountries, setSortedCountries] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   const fuzzySearch = (searchTerm, country) => {
     const lowerSearchTerm = searchTerm.toLowerCase();
@@ -48,6 +51,17 @@ function Home() {
     setSortedCountries(sortedData);
   };
 
+  const handleOpenModal = (country) => {
+    setOpenModal(true);
+    setSelectedCountry(country);
+    document.body.classList.add("modal-open");
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    document.body.classList.remove("modal-open");
+  };
+
   return (
     <>
       <Search onSearch={handleSearch} />
@@ -70,15 +84,15 @@ function Home() {
       {isError && <p className="error-screen">Error loading data</p>}
       <div className="card-wrapper">
         {currentItems?.map((country) => (
-          <div className="card-container" key={country.cca2}>
-            <img src={country?.flags.png} className="flag-img" />
+          <div className="card-container" key={country?.cca2}>
+            <img src={country?.flags?.png} className="flag-img" />
             <div className="info-wrapper">
               <h1 className="country-name">{country?.name?.official}</h1>
-              <p>CCA2 : {country.cca2}</p>
-              <p>CCA3 : {country.cca3}</p>
+              <p>CCA2 : {country?.cca2}</p>
+              <p>CCA3 : {country?.cca3}</p>
               <p>
                 Native Name :{" "}
-                {Object.keys(country?.name?.nativeName || {}).map(
+                {Object.keys(country?.name?.nativeName || {})?.map(
                   (langCode) => (
                     <span key={langCode}>
                       {country?.name?.nativeName[langCode]?.official}
@@ -99,7 +113,18 @@ function Home() {
                 {country?.idd?.suffixes}
               </p>
             </div>
-            <button className="btn-detail">Details</button>
+            <button
+              className="btn-detail"
+              onClick={() => handleOpenModal(country)}
+            >
+              Details
+            </button>
+            {openModal && (
+              <CountryModal
+                onClose={handleCloseModal}
+                CountryDetail={selectedCountry}
+              />
+            )}
           </div>
         ))}
       </div>
